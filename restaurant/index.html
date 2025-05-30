@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login & signup</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body{
+      min-height: 100vh;
+      background-image: url('https://b.zmtcdn.com/web_assets/81f3ff974d82520780078ba1cfbd453a1583259680.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+      color: white;
+    }
+
+    nav{
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      position: fixed;
+    }
+
+    nav .logo{
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    nav .nav-links{
+      display: flex;
+      gap: 10px;
+    }
+
+    nav .nav-links a{
+      padding: 8px 16px;
+      border: none;
+      background: #D72638;
+      color: white;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      white-space: nowrap;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    nav .nav-links a:hover{
+      background: #a81f2a;
+    }
+
+    .design{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 90%;
+      padding: 20px;
+    }
+
+    .design h1{
+      font-size: clamp(32px, 8vw, 64px);
+      font-weight: 700;
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .design p{
+      font-size: clamp(16px, 4vw, 22px);
+      font-weight: 300;
+    }
+
+    .modal{
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      display: none;
+      top: 0;
+      left: 0;
+    }
+
+    .modal:target {
+      display: flex;
+    }
+
+    .modal:target + body {
+      overflow: hidden;
+    }
+
+    .box{
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .box h2{
+      text-align: center;
+      margin-bottom: 25px;
+      color: #D72638;
+      font-size: clamp(20px, 5vw, 24px);
+    }
+
+    .input-box{
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-box input{
+      width: 100%;
+      padding: 12px 10px;
+      border: none;
+      border-bottom: 2px solid #D72638;
+      background: transparent;
+      font-size: 16px;
+    }
+
+    .input-box label{
+      position: absolute;
+      top: 12px;
+      left: 10px;
+      transition: 0.3s;
+      color: #999;
+      font-size: 16px;
+    }
+
+    .input-box input:focus ~ label,
+    .input-box input:valid ~ label{
+      top: -18px;
+      font-size: 12px;
+      color: #D72638;
+    }
+
+    .box button{
+      width: 100%;
+      padding: 12px;
+      background: #D72638;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+
+    .box button:hover{
+      background: #a81f2a;
+    }
+
+    .close-btn{
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px){
+      nav{
+        padding: 12px 5%;
+      }
+      nav .logo{
+        font-size: 20px;
+      }
+      .box{
+        padding: 25px 20px;
+      }
+      .input-box{
+        margin-bottom: 20px;
+      }
+    }
+
+    @media(max-width: 480px){
+      nav{
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 5%;
+      }
+      nav .nav-links{
+        width: 100%;
+        justify-content: space-between;
+      }
+      nav .nav-links a{
+        width: 48%;
+        padding: 8px;
+        text-align: center;
+      }
+      .design{
+        top: 45%;
+      }
+      .box{
+        padding: 20px 15px;
+      }
+      .input-box input{
+        padding: 10px;
+      }
+      .input-box label{
+        font-size: 14px;
+      }
+    }
+
+    @media(max-width: 360px){
+      .design h1 {
+        font-size: 28px;
+      }
+      .design p{
+        font-size: 14px;
+      }
+      .box{
+        padding: 15px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">VILLA FOODIES</div>
+    <div class="nav-links">
+      <a href="#loginModal">Sign In</a>
+      <a href="#signupModal">Sign Up</a>
+    </div>
+  </nav>
+
+  <div class="design">
+    <h1>VILLA FOODIES</h1>
+    <p>Find the best restaurants, cafés and bars in India</p>
+  </div>
+
+  <div class="modal" id="loginModal">
+    <div class="box">
+      <a href="#" class="close-btn">&times;</a>
+      <h2>Login</h2>
+      <form action="index2.html">
+        <div class="input-box">
+          <input type="text" required>
+          <label>Username</label>
+        </div>
+        <div class="input-box">
+          <input type="password" required>
+          <label>Password</label>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="signupModal">
+    <div class="box">
+      <a href="#" class="close-btn">&times;</a>
+      <h2>Sign Up</h2>
+      <form action="index2.html">
+        <div class="input-box">
+          <input type="text" required>
+          <label>Username</label>
+        </div>
+        <div class="input-box">
+          <input type="email" required>
+          <label>Email</label>
+        </div>
+        <div class="input-box">
+          <input type="password" required>
+          <label>Password</label>
+        </div>
+        <div class="input-box">
+          <input type="password" required>
+          <label>Confirm Password</label>
+        </div>
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
